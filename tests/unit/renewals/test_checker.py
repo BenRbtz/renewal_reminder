@@ -1,23 +1,24 @@
 import logging
 from collections import namedtuple
 from datetime import datetime, timedelta
+from unittest.mock import Mock
 
 import pytest
 import telegram
 
-from renewals import checker
+from renewals.ports import checker
 
 File = namedtuple('File', ['file_path', 'dates'])
 
 
 class TestChecker:
     @pytest.fixture()
-    def bot_mock(self, mocker):
-        yield mocker.Mock(spec=telegram.Bot)
+    def bot_mock(self):
+        yield Mock(spec=telegram.Bot)
 
     @pytest.fixture()
-    def bot_logger(self, mocker):
-        yield mocker.Mock(spec=logging)
+    def bot_logger(self):
+        yield Mock(spec=logging)
 
     @pytest.fixture()
     def my_checker(self, bot_mock, bot_logger):
