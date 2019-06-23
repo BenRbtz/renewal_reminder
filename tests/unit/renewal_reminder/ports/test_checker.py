@@ -1,5 +1,5 @@
 from datetime import datetime
-from unittest.mock import Mock
+from unittest.mock import Mock, call
 
 import pytest
 
@@ -54,3 +54,20 @@ class TestChecker:
         checker.run(chat_id=chat_id)
 
         mock_messenger.send.assert_called_with(**expected)
+
+    @pytest.mark.parametrize('renewal_dates, expected',
+                             [(['01-01-2018'], [
+                                 call.info(msg='Start Check For Renewals.'),
+                                 call.info(msg='There is 1 renewals due in the next 30 days. Due on 01-01-2018.'),
+                                 call.info(msg='Finished Check For Renewals.')]),
+                              (['05-06-2019', '03-03-2018', '01-01-2018'], [
+                                  call.info(msg='Start Check For Renewals.'),
+                                  call.info(msg=
+                                            'There are 3 renewals due in the next 30 days. Closest due on 01-01-2018.'),
+                                  call.info(msg='Finished Check For Renewals.')]),
+                              ], ids=repr)
+    def test_run_with_logger_messages(self, checker, mock_renewals, mock_logger, renewal_dates, expected):
+        mock_renewals.get.return_value = renewal_dates
+        checker.run(chat_id='chat_id')
+
+        assert mock_logger.method_calls == expected

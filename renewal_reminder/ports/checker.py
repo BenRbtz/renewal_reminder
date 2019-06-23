@@ -14,12 +14,15 @@ class Checker:
         self.logger = logger
 
     def run(self, chat_id: str):
+        self.logger.info(msg='Start Check For Renewals.')
         members = self.members_retriever.get()
         renewal_dates = self.renewals.get(members=members)
         msg = self._get_renewal_message(renewal_dates)
 
         if msg:
             self.messenger.send(chat_id=chat_id, msg=msg)
+            self.logger.info(msg=msg)
+        self.logger.info(msg='Finished Check For Renewals.')
 
     @staticmethod
     def _get_renewal_message(renewals: List[date]) -> Optional[str]:
