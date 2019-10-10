@@ -22,16 +22,16 @@ RUN apt-get update \
 
 FROM base-image as build-image
 
-ENV POETRY_VERSION=0.12.12
-
 RUN apt-get install -y \
         build-essential \
+        libffi-dev \
+        libssl-dev \
         python3-dev \
         python3-setuptools \
         python3-venv \
     && pip install --upgrade \
         setuptools \
-        "poetry==$POETRY_VERSION" \
+        poetry\
         wheel
 
 WORKDIR /app
