@@ -1,8 +1,10 @@
 from datetime import datetime
-from unittest.mock import Mock, call
+from unittest.mock import Mock
 
 import pytest
+from tabulate import tabulate
 
+from renewal_reminder.business_logic.members import Member
 from renewal_reminder.ports.checker import Checker
 
 
@@ -28,46 +30,48 @@ class TestChecker:
         yield Checker(messenger=mock_messenger, renewals=mock_renewals, members_retriever=mock_members_retriever,
                       logger=mock_logger)
 
-    @pytest.mark.parametrize('renewal_dates, expected',
-                             [([datetime.now().date()], True),
+    @pytest.mark.parametrize('members, expected',
+                             [([Member(name='person1', grade='9 kyu', licence_expiry=datetime.now().date())], True),
                               ([], False),
                               ], ids=repr)
-    def test_run_with_messenger_send_called(self, checker, mock_messenger, mock_renewals, renewal_dates, expected):
-        mock_renewals.get.return_value = renewal_dates
+    def test_run_with_messenger_send_called(self, checker, mock_messenger, mock_renewals, members, expected):
+        mock_renewals.get.return_value = members
         checker.run(chat_id='chat_id')
 
         actual = mock_messenger.send.called
 
         assert actual == expected
 
-    @pytest.mark.parametrize('chat_id, renewal_dates, expected',
-                             [('chat_id1', ['01-01-2018'], {
-                                 'chat_id': 'chat_id1',
-                                 'msg': 'There is 1 renewals due in the next 30 days. Due on 01-01-2018.'}),
-                              ('chat_id2', ['05-06-2019', '03-03-2018', '01-01-2018'], {
-                                  'chat_id': 'chat_id2',
-                                  'msg': 'There are 3 renewals due in the next 30 days. Closest due on 01-01-2018.'}),
-                              ], ids=repr)
-    def test_run_with_messenger_send_messages(self, checker, mock_messenger, mock_renewals, chat_id, renewal_dates,
+    @pytest.mark.parametrize('chat_id, members, expected', [
+        (
+                'chat_id1',
+                [Member(name='person', grade='9 kyu', licence_expiry='01-01-2018')],
+                {
+                    'chat_id': 'chat_id1',
+                    'msg': f'There is 1 renewals due in the next 30 days. Due on 01-01-2018.'
+                },
+        ),
+        (
+                'chat_id2',
+                [
+                    Member(name='person1', grade='9 kyu', licence_expiry='05-06-2019'),
+                    Member(name='person2', grade='8 kyu', licence_expiry='03-03-2018'),
+                    Member(name='person3', grade='7 kyu', licence_expiry='01-01-2018'),
+                ],
+                {
+                    'chat_id': 'chat_id2',
+                    'msg': 'There are 3 renewals due in the next 30 days. Closest due on 01-01-2018.'
+                }
+        ),
+    ], ids=repr)
+    def test_run_with_messenger_send_messages(self, checker, mock_messenger, mock_renewals, chat_id, members,
                                               expected):
-        mock_renewals.get.return_value = renewal_dates
+        mock_renewals.get.return_value = members
         checker.run(chat_id=chat_id)
+        msg = expected['msg']
+
+        members = [[member.name, member.grade, member.licence_expiry] for member in members]
+        table = tabulate(members, headers=['Name', 'Grade', 'Licence Expiry'], tablefmt='orgtbl')
+        expected['msg'] = f'{msg}\n\n{table}'
 
         mock_messenger.send.assert_called_with(**expected)
-
-    @pytest.mark.parametrize('renewal_dates, expected',
-                             [(['01-01-2018'], [
-                                 call.info(msg='Start Check For Renewals.'),
-                                 call.info(msg='There is 1 renewals due in the next 30 days. Due on 01-01-2018.'),
-                                 call.info(msg='Finished Check For Renewals.')]),
-                              (['05-06-2019', '03-03-2018', '01-01-2018'], [
-                                  call.info(msg='Start Check For Renewals.'),
-                                  call.info(msg=
-                                            'There are 3 renewals due in the next 30 days. Closest due on 01-01-2018.'),
-                                  call.info(msg='Finished Check For Renewals.')]),
-                              ], ids=repr)
-    def test_run_with_logger_messages(self, checker, mock_renewals, mock_logger, renewal_dates, expected):
-        mock_renewals.get.return_value = renewal_dates
-        checker.run(chat_id='chat_id')
-
-        assert mock_logger.method_calls == expected

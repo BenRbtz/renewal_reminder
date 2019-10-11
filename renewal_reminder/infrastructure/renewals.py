@@ -8,11 +8,11 @@ class Renewals:
     def __init__(self, notice_days: int):
         self.notice_date = datetime.now().date() + timedelta(+notice_days)
 
-    def get(self, members: List[Member]) -> List[date]:
-        renewals_due: List[date] = []
+    def get(self, members: List[Member]) -> List[Member]:
+        renewals_due: List[Member] = []
         for member in members:
             if self._check_date_expired(expiry_date=member.licence_expiry):
-                renewals_due.append(member.licence_expiry)
+                renewals_due.append(member)
 
         return renewals_due
 

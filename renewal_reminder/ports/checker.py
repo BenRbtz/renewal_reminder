@@ -1,7 +1,9 @@
 import logging
-from datetime import date
 from typing import List, Optional
 
+from tabulate import tabulate
+
+from renewal_reminder.business_logic.members import Member
 from renewal_reminder.infrastructure.renewals import Renewals
 from renewal_reminder.ports.ports import Messenger, MembersRetriever
 
@@ -16,8 +18,8 @@ class Checker:
     def run(self, chat_id: str):
         self.logger.info(msg='Start Check For Renewals.')
         members = self.members_retriever.get()
-        renewal_dates = self.renewals.get(members=members)
-        msg = self._get_renewal_message(renewal_dates)
+        members_due_renewal = self.renewals.get(members=members)
+        msg = self._get_renewal_message(members_due_renewal)
 
         if msg:
             self.messenger.send(chat_id=chat_id, msg=msg)
@@ -25,15 +27,21 @@ class Checker:
         self.logger.info(msg='Finished Check For Renewals.')
 
     @staticmethod
-    def _get_renewal_message(renewals: List[date]) -> Optional[str]:
-        if not renewals:
+    def _get_renewal_message(members_due_renewals: List[Member]) -> Optional[str]:
+        if not members_due_renewals:
             return None
 
-        date_counts = len(renewals)
-        oldest_date = min(renewals)
+        date_counts = len(members_due_renewals)
+        first_member_licence_due = min(members_due_renewals, key=lambda x: x.licence_expiry)
 
-        msg = f'There is {date_counts} renewals due in the next 30 days. Due on {oldest_date}.'
-        if len(renewals) > 1:
-            msg = f'There are {date_counts} renewals due in the next 30 days. Closest due on {oldest_date}.'
+        msg = (f'There is {date_counts} renewals due in the next 30 days. '
+               f'Due on {first_member_licence_due.licence_expiry}.')
+        if len(members_due_renewals) > 1:
+            msg = (f'There are {date_counts} renewals due in the next 30 days. '
+                   f'Closest due on {first_member_licence_due.licence_expiry}.')
+
+        members = [[member.name, member.grade, member.licence_expiry] for member in members_due_renewals]
+        table = tabulate(members, headers=['Name', 'Grade', 'Licence Expiry'], tablefmt='orgtbl')
+        msg = f'{msg}\n\n{table}'
 
         return msg
