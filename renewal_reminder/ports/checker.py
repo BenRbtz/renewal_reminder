@@ -21,15 +21,14 @@ class Checker:
         members_due_renewal = self.renewals.get(members=members)
         msg = self._get_renewal_message(members_due_renewal)
 
-        if msg:
-            self.messenger.send(chat_id=chat_id, msg=msg)
-            self.logger.info(msg=msg)
+        self.messenger.send(chat_id=chat_id, msg=msg)
+        self.logger.info(msg=msg)
         self.logger.info(msg='Finished Check For Renewals.')
 
     @staticmethod
     def _get_renewal_message(members_due_renewals: List[Member]) -> Optional[str]:
         if not members_due_renewals:
-            return None
+            return 'No renewals due.'
 
         date_counts = len(members_due_renewals)
         first_member_licence_due = min(members_due_renewals, key=lambda x: x.licence_expiry)

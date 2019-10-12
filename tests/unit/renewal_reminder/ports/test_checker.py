@@ -32,23 +32,29 @@ class TestChecker:
 
     @pytest.mark.parametrize('members, expected',
                              [([Member(name='person1', grade='9 kyu', licence_expiry=datetime.now().date())], True),
-                              ([], False),
+                              ([], True),
                               ], ids=repr)
     def test_run_with_messenger_send_called(self, checker, mock_messenger, mock_renewals, members, expected):
         mock_renewals.get.return_value = members
         checker.run(chat_id='chat_id')
-
         actual = mock_messenger.send.called
-
         assert actual == expected
 
     @pytest.mark.parametrize('chat_id, members, expected', [
         (
                 'chat_id1',
+                [],
+                {
+                    'chat_id': 'chat_id1',
+                    'msg': 'No renewals due.'
+                },
+        ),
+        (
+                'chat_id1',
                 [Member(name='person', grade='9 kyu', licence_expiry='01-01-2018')],
                 {
                     'chat_id': 'chat_id1',
-                    'msg': f'There is 1 renewals due in the next 30 days. Due on 01-01-2018.'
+                    'msg': 'There is 1 renewals due in the next 30 days. Due on 01-01-2018.'
                 },
         ),
         (
@@ -68,10 +74,11 @@ class TestChecker:
                                               expected):
         mock_renewals.get.return_value = members
         checker.run(chat_id=chat_id)
-        msg = expected['msg']
 
-        members = [[member.name, member.grade, member.licence_expiry] for member in members]
-        table = tabulate(members, headers=['Name', 'Grade', 'Licence Expiry'], tablefmt='orgtbl')
-        expected['msg'] = f'{msg}\n\n{table}'
+        if expected['msg'] != 'No renewals due.':
+            msg = expected['msg']
+            members = [[member.name, member.grade, member.licence_expiry] for member in members]
+            table = tabulate(members, headers=['Name', 'Grade', 'Licence Expiry'], tablefmt='orgtbl')
+            expected['msg'] = f'{msg}\n\n{table}'
 
         mock_messenger.send.assert_called_with(**expected)
