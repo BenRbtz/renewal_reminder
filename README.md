@@ -10,7 +10,7 @@ The below table is a list of environment variables that are used in the applicat
 | Name | Description | required | Example |
 |:------:|:-----------:|:--------:|:-------:|
 | APP_FILE_PATH   | File path to the csv containing the members information. MUST MATCH MOUNTED VOLUME FILE PATH | yes | /app/example.csv |
-| APP_LOG_LEVEL   | The level of logging to record.                                                              | yes | INFO |
+| APP_LOG_LEVEL   | The level of logging to record.                                                              | No | INFO |
 | APP_TOKEN_ID    | The token id for the telegram bot                                                            | yes | 100100100 |
 | APP_CHAT_ID     | The chat id for the telegram bot to send the notification to.                                | yes | 200200200:dsa8219knkncsa | 
 | APP_NOTICE_DAYS | The number of days before a renewal is due to send a notification.                           | yes | 30 |
