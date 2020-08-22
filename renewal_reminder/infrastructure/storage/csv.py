@@ -6,8 +6,10 @@ from renewal_reminder.business_logic.members import Member
 from renewal_reminder.ports.storage import MembersRetriever
 
 
+FIELDS = {'name', 'grade', 'licence expiry'}
+
+
 class CsvMembersRetriever(MembersRetriever):
-    fields = {'name', 'grade', 'licence expiry'}
 
     def __init__(self, file_path: str):
         self.file_path = file_path
@@ -21,7 +23,7 @@ class CsvMembersRetriever(MembersRetriever):
                 raise ValueError(f'No data in csv {self.file_path}')
             file.seek(0)  # Resets reader
 
-            if not self.fields.issubset(set(reader.fieldnames)):
+            if not FIELDS.issubset(set(reader.fieldnames)):
                 raise KeyError('CSV fieldnames not match expected fieldnames')
 
             members: List[Member] = []
