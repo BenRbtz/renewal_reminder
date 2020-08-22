@@ -3,7 +3,7 @@ from typing import List, Optional
 
 from tabulate import tabulate
 
-from renewal_reminder.business_logic.members import Member
+from renewal_reminder.business_logic.model.member import Member
 from renewal_reminder.infrastructure.renewals import Renewals
 from renewal_reminder.ports.messenger import Messenger
 from renewal_reminder.ports.storage import MembersRetriever

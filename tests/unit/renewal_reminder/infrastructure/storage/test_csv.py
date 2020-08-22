@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 import pytest
 
-from renewal_reminder.business_logic.members import Member
+from renewal_reminder.business_logic.model.member import Member
 from renewal_reminder.infrastructure.storage.csv import CsvMembersRetriever
 
 

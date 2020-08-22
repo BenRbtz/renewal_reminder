@@ -4,7 +4,7 @@ from unittest.mock import Mock
 import pytest
 from tabulate import tabulate
 
-from renewal_reminder.business_logic.members import Member
+from renewal_reminder.business_logic.model.member import Member
 from renewal_reminder.business_logic.checker import Checker
 
 

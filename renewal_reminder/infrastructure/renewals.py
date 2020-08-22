@@ -1,7 +1,7 @@
 from datetime import date, datetime, timedelta
 from typing import Optional, List
 
-from renewal_reminder.business_logic.members import Member
+from renewal_reminder.business_logic.model.member import Member
 
 
 class Renewals:

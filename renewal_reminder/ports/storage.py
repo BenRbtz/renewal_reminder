@@ -1,6 +1,6 @@
 from typing import List
 
-from renewal_reminder.business_logic.members import Member
+from renewal_reminder.business_logic.model.member import Member
 
 
 class MembersRetriever:
