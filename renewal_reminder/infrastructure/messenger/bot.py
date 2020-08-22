@@ -12,4 +12,4 @@ class BotMessenger(Messenger):
 
     def send(self, msg: str) -> None:
         logging.info('Message being sent: %s', msg)
-        self._bot.sendMessage(chat_id=self._chat_id, text=msg)
+        self._bot.send_message(chat_id=self._chat_id, text=msg)
