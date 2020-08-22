@@ -10,21 +10,18 @@ from renewal_reminder.ports.storage import MembersRetriever
 
 
 class Checker:
-    def __init__(self, messenger: Messenger, renewals: Renewals, members_retriever: MembersRetriever, logger: logging):
+    def __init__(self, messenger: Messenger, renewals: Renewals, members_retriever: MembersRetriever):
         self.messenger = messenger
         self.renewals = renewals
         self.members_retriever = members_retriever
-        self.logger = logger
 
     def run(self):
-        self.logger.info(msg='Start Check For Renewals.')
+        logging.info(msg='Start check for renewals')
         members = self.members_retriever.get()
         members_due_renewal = self.renewals.get(members=members)
         msg = self._get_renewal_message(members_due_renewal)
 
         self.messenger.send(msg=msg)
-        self.logger.info(msg=msg)
-        self.logger.info(msg='Finished Check For Renewals.')
 
     @staticmethod
     def _get_renewal_message(members_due_renewals: List[Member]) -> Optional[str]:

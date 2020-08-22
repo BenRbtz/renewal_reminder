@@ -1,9 +1,13 @@
+from dataclasses import dataclass
+from logging import getLogger
+from os import environ
+
 from renewal_reminder.business_logic.checker import Checker
-from renewal_reminder.utils.config import AppConfig
-from renewal_reminder.infrastructure.logger import get_logger
 from renewal_reminder.infrastructure.messenger.bot import BotMessenger
 from renewal_reminder.infrastructure.renewals import Renewals
 from renewal_reminder.infrastructure.storage.csv import CsvMembersRetriever
+
+LOGGER = getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -27,11 +31,13 @@ class AppConfig:
 
 def main():
     config = AppConfig.read_from_environment()
-    logger = get_logger(log_level=config.log_level)
+
+    LOGGER.setLevel(config.log_level)
+
     messenger = BotMessenger(token_id=config.token_id, chat_id=config.chat_id)
     renewals = Renewals(notice_days=config.notice_days)
     members_retriever = CsvMembersRetriever(file_path=config.file_path)
-    checker = Checker(messenger=messenger, renewals=renewals, members_retriever=members_retriever, logger=logger)
+    checker = Checker(messenger=messenger, renewals=renewals, members_retriever=members_retriever)
 
     checker.run()
 

@@ -1,3 +1,5 @@
+import logging
+
 from telegram import Bot
 
 from renewal_reminder.ports.messenger import Messenger
@@ -9,5 +11,5 @@ class BotMessenger(Messenger):
         self._chat_id = chat_id
 
     def send(self, msg: str) -> None:
+        logging.info('Message being sent: %s', msg)
         self._bot.sendMessage(chat_id=self._chat_id, text=msg)
-        # self.logger.info(f'These are the dates due for renewal: {renewal_dates}')
