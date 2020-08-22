@@ -5,8 +5,8 @@ from renewal_reminder.business_logic.model.member import Member
 
 
 class Renewals:
-    def __init__(self, notice_days: int):
-        self.notice_date = datetime.now().date() + timedelta(+notice_days)
+    def __init__(self, days_notice: int):
+        self.notice_date = datetime.now().date() + timedelta(+days_notice)
 
     def get(self, members: List[Member]) -> List[Member]:
         renewals_due: List[Member] = []

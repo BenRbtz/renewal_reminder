@@ -18,5 +18,5 @@ class TestRenewals:
         members = [member1, member2, member3, member4]
 
         expected = [member1, member2]
-        actual = Renewals(notice_days=1).get(members=members)
+        actual = Renewals(days_notice=1).get(members=members)
         assert actual == expected

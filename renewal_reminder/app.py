@@ -14,7 +14,7 @@ class AppConfig:
     log_level: str
     token_id: str
     chat_id: str
-    notice_days: int
+    days_notice: int
 
     @classmethod
     def read_from_environment(cls):
@@ -23,7 +23,7 @@ class AppConfig:
             log_level=environ.get('APP_LOG_LEVEL', 'INFO'),
             token_id=environ['APP_TOKEN_ID'],
             chat_id=environ['APP_CHAT_ID'],
-            notice_days=int(environ['APP_NOTICE_DAYS'])
+            notice_days=int(environ['APP_DAYS_NOTICE'])
         )
 
 
@@ -33,7 +33,7 @@ def main():
     logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=config.log_level)
 
     messenger = BotMessenger(token_id=config.token_id, chat_id=config.chat_id)
-    renewals = Renewals(notice_days=config.notice_days)
+    renewals = Renewals(days_notice=config.days_notice)
     members_retriever = CsvMembersRetriever(file_path=config.file_path)
     checker = Checker(messenger=messenger, renewals=renewals, members_retriever=members_retriever)
 
