@@ -16,7 +16,7 @@ class Renewals:
 
         return renewals_due
 
-    def _check_date_expired(self, expiry_date: Optional[date] = None):
+    def _check_date_expired(self, expiry_date: Optional[date] = None) -> bool:
         if not expiry_date:
             return False
 
