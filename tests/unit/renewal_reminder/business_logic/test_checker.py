@@ -27,8 +27,7 @@ class TestChecker:
 
     @pytest.fixture()
     def checker(self, mock_messenger, mock_renewals, mock_members_retriever, mock_logger):
-        yield Checker(messenger=mock_messenger, renewals=mock_renewals, members_retriever=mock_members_retriever,
-                      logger=mock_logger)
+        yield Checker(messenger=mock_messenger, renewals=mock_renewals, members_retriever=mock_members_retriever)
 
     @pytest.mark.parametrize('members, expected',
                              [([Member(name='person1', grade='9 kyu', licence_expiry=datetime.now().date())], True),

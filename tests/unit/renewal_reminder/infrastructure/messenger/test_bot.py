@@ -9,4 +9,4 @@ class TestBotMessenger:
         mock_bot_ins = Mock()
         mock_bot.return_value = mock_bot_ins
         BotMessenger(token_id='token_id', chat_id='chat_id').send(msg='test msg')
-        mock_bot_ins.sendMessage.assert_called_with(chat_id='chat_id', text='test msg')
+        mock_bot_ins.send_message.assert_called_with(chat_id='chat_id', text='test msg')
