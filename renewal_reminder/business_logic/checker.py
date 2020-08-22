@@ -5,7 +5,8 @@ from tabulate import tabulate
 
 from renewal_reminder.business_logic.members import Member
 from renewal_reminder.infrastructure.renewals import Renewals
-from renewal_reminder.ports.ports import Messenger, MembersRetriever
+from renewal_reminder.ports.messenger import Messenger
+from renewal_reminder.ports.storage import MembersRetriever
 
 
 class Checker:
@@ -15,13 +16,13 @@ class Checker:
         self.members_retriever = members_retriever
         self.logger = logger
 
-    def run(self, chat_id: str):
+    def run(self):
         self.logger.info(msg='Start Check For Renewals.')
         members = self.members_retriever.get()
         members_due_renewal = self.renewals.get(members=members)
         msg = self._get_renewal_message(members_due_renewal)
 
-        self.messenger.send(chat_id=chat_id, msg=msg)
+        self.messenger.send(msg=msg)
         self.logger.info(msg=msg)
         self.logger.info(msg='Finished Check For Renewals.')
 

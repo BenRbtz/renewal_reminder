@@ -5,7 +5,7 @@ import pytest
 from tabulate import tabulate
 
 from renewal_reminder.business_logic.members import Member
-from renewal_reminder.ports.checker import Checker
+from renewal_reminder.business_logic.checker import Checker
 
 
 class TestChecker:
@@ -36,7 +36,7 @@ class TestChecker:
                               ], ids=repr)
     def test_run_with_messenger_send_called(self, checker, mock_messenger, mock_renewals, members, expected):
         mock_renewals.get.return_value = members
-        checker.run(chat_id='chat_id')
+        checker.run()
         actual = mock_messenger.send.called
         assert actual == expected
 
@@ -45,7 +45,6 @@ class TestChecker:
                 'chat_id1',
                 [],
                 {
-                    'chat_id': 'chat_id1',
                     'msg': 'No renewals due.'
                 },
         ),
@@ -53,7 +52,6 @@ class TestChecker:
                 'chat_id1',
                 [Member(name='person', grade='9 kyu', licence_expiry='01-01-2018')],
                 {
-                    'chat_id': 'chat_id1',
                     'msg': 'There is 1 renewals due in the next 30 days. Due on 01-01-2018.'
                 },
         ),
@@ -65,7 +63,6 @@ class TestChecker:
                     Member(name='person3', grade='7 kyu', licence_expiry='01-01-2018'),
                 ],
                 {
-                    'chat_id': 'chat_id2',
                     'msg': 'There are 3 renewals due in the next 30 days. Closest due on 01-01-2018.'
                 }
         ),
@@ -73,7 +70,7 @@ class TestChecker:
     def test_run_with_messenger_send_messages(self, checker, mock_messenger, mock_renewals, chat_id, members,
                                               expected):
         mock_renewals.get.return_value = members
-        checker.run(chat_id=chat_id)
+        checker.run()
 
         if expected['msg'] != 'No renewals due.':
             msg = expected['msg']

@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import List
 
 from renewal_reminder.business_logic.members import Member
-from renewal_reminder.ports.ports import MembersRetriever
+from renewal_reminder.ports.storage import MembersRetriever
 
 
 class CsvMembersRetriever(MembersRetriever):

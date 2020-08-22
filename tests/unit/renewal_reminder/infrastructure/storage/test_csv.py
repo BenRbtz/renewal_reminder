@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import pytest
 
 from renewal_reminder.business_logic.members import Member
-from renewal_reminder.infrastructure.members_retriever.csv import CsvMembersRetriever
+from renewal_reminder.infrastructure.storage.csv import CsvMembersRetriever
 
 
 @pytest.fixture()
