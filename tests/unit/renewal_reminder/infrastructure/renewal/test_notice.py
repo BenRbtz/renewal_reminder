@@ -1,10 +1,10 @@
 from datetime import datetime, timedelta
 from unittest.mock import Mock
 
-from renewal_reminder.infrastructure.renewals import Renewals
+from renewal_reminder.infrastructure.renewal.notice import RenewalCheckerNotice
 
 
-class TestRenewals:
+class TestRenewalCheckerNotice:
     def test_get_with_some_dates_returned(self):
         member1 = Mock()
         member1.licence_expiry = datetime.now().date() + timedelta(+0)
@@ -18,5 +18,5 @@ class TestRenewals:
         members = [member1, member2, member3, member4]
 
         expected = [member1, member2]
-        actual = Renewals(days_notice=1).get(members=members)
+        actual = RenewalCheckerNotice(days_notice=1).check(members=members)
         assert actual == expected

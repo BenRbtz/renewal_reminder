@@ -12,15 +12,15 @@ FIELDS = {'name', 'grade', 'licence expiry'}
 class CsvMembersRetriever(MembersRetriever):
 
     def __init__(self, file_path: str):
-        self.file_path = file_path
+        self._file_path = file_path
 
     def get(self) -> List[Member]:
-        with open(file=self.file_path, mode='r', encoding='utf-8') as file:
+        with open(file=self._file_path, mode='r', encoding='utf-8') as file:
             reader = DictReader(f=file)
 
             data = file.read()
             if not data:
-                raise ValueError(f'No data in csv {self.file_path}')
+                raise ValueError(f'No data in csv {self._file_path}')
             file.seek(0)  # Resets reader
 
             if not FIELDS.issubset(set(reader.fieldnames)):

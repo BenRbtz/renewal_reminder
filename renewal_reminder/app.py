@@ -4,7 +4,7 @@ from os import environ
 
 from renewal_reminder.business_logic.checker import Checker
 from renewal_reminder.infrastructure.messenger.bot import BotMessenger
-from renewal_reminder.infrastructure.renewals import Renewals
+from renewal_reminder.infrastructure.renewal.notice import RenewalCheckerNotice
 from renewal_reminder.infrastructure.storage.csv import CsvMembersRetriever
 
 
@@ -23,7 +23,7 @@ class AppConfig:
             log_level=environ.get('APP_LOG_LEVEL', 'INFO'),
             token_id=environ['APP_TOKEN_ID'],
             chat_id=environ['APP_CHAT_ID'],
-            notice_days=int(environ['APP_DAYS_NOTICE'])
+            days_notice=int(environ['APP_DAYS_NOTICE'])
         )
 
 
@@ -33,9 +33,10 @@ def main():
     logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=config.log_level)
 
     messenger = BotMessenger(token_id=config.token_id, chat_id=config.chat_id)
-    renewals = Renewals(days_notice=config.days_notice)
+    renewals = RenewalCheckerNotice(days_notice=config.days_notice)
     members_retriever = CsvMembersRetriever(file_path=config.file_path)
-    checker = Checker(messenger=messenger, renewals=renewals, members_retriever=members_retriever)
+    checker = Checker(messenger=messenger, renewal_checker=renewals,
+                      members_retriever=members_retriever)
 
     checker.run()
 
