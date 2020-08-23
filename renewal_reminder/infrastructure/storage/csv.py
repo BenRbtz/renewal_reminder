@@ -3,13 +3,13 @@ from datetime import datetime
 from typing import List
 
 from renewal_reminder.business_logic.model.member import Member
-from renewal_reminder.ports.storage import MembersRetriever
+from renewal_reminder.ports.storage import MembersStorage
 
 
 FIELDS = {'name', 'grade', 'licence expiry'}
 
 
-class CsvMembersRetriever(MembersRetriever):
+class MembersStorageCsv(MembersStorage):
 
     def __init__(self, file_path: str):
         self._file_path = file_path

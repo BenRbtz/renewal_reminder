@@ -5,7 +5,7 @@ from typing import Optional
 
 from renewal_reminder.business_logic.checker import RenewalChecker
 from renewal_reminder.infrastructure.messenger.bot import BotMessenger
-from renewal_reminder.infrastructure.storage.csv import CsvMembersRetriever
+from renewal_reminder.infrastructure.storage.csv import MembersStorageCsv
 
 
 @dataclass(frozen=True)
@@ -47,8 +47,8 @@ def main():
 
     messenger = BotMessenger(token_id=config.telegram.token_id, chat_id=config.telegram.chat_id,
                              base_url=config.telegram.base_url)
-    members_retriever = CsvMembersRetriever(file_path=config.file_path)
-    checker = RenewalChecker(messenger=messenger, members_retriever=members_retriever)
+    members_storage = MembersStorageCsv(file_path=config.file_path)
+    checker = RenewalChecker(messenger=messenger, members_storage=members_storage)
 
     checker.run(days_notice=config.days_notice)
 

@@ -3,10 +3,10 @@ from datetime import datetime, timedelta
 import pytest
 
 from renewal_reminder.business_logic.model.member import Member
-from renewal_reminder.infrastructure.storage.csv import CsvMembersRetriever
+from renewal_reminder.infrastructure.storage.csv import MembersStorageCsv
 
 
-@pytest.fixture()
+@pytest.fixture
 def file(tmpdir):
     def _file(content: str = ''):
         csv_file = tmpdir.join('file.csv')
@@ -17,7 +17,7 @@ def file(tmpdir):
     return _file
 
 
-class TestCsvMembersRetriever:
+class TestMembersStorageCsv:
     def test_get_with_members(self, file):
         dates = [
             (datetime.now() + timedelta(+0)).date(),
@@ -32,7 +32,7 @@ class TestCsvMembersRetriever:
             expected.append(Member(name='person', grade='10 kyu', licence_expiry=date))
         file_path = file(content=csv_content)
 
-        actual = CsvMembersRetriever(file_path=file_path).get()
+        actual = MembersStorageCsv(file_path=file_path).get()
 
         assert actual == expected
 
@@ -40,7 +40,7 @@ class TestCsvMembersRetriever:
         file_path = file()
 
         with pytest.raises(ValueError) as exception:
-            CsvMembersRetriever(file_path=file_path).get()
+            MembersStorageCsv(file_path=file_path).get()
 
         assert 'No data in csv' in str(exception.value)
 
@@ -49,6 +49,6 @@ class TestCsvMembersRetriever:
         csv_file = file(content=csv_content)
 
         with pytest.raises(KeyError) as exception:
-            CsvMembersRetriever(file_path=str(csv_file)).get()
+            MembersStorageCsv(file_path=str(csv_file)).get()
 
         assert "CSV fieldnames not match expected fieldnames" in str(exception.value)

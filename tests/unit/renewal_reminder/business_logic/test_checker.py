@@ -14,7 +14,7 @@ class TestChecker:
         return Mock()
 
     @pytest.fixture
-    def mock_members_retriever(self):
+    def mock_members_storage(self):
         return Mock()
 
     @pytest.fixture
@@ -22,15 +22,15 @@ class TestChecker:
         return Mock()
 
     @pytest.fixture
-    def checker(self, mock_messenger, mock_members_retriever, mock_logger):
-        yield RenewalChecker(messenger=mock_messenger, members_retriever=mock_members_retriever)
+    def checker(self, mock_messenger, mock_members_storage, mock_logger):
+        yield RenewalChecker(messenger=mock_messenger, members_storage=mock_members_storage)
 
     @pytest.mark.parametrize('members, expected', [
         ([Member(name='person1', grade='9 kyu', licence_expiry=datetime.now().date())], True),
         ([], True),
     ], ids=repr)
-    def test_run_with_messenger_send_called(self, checker, mock_members_retriever, mock_messenger, members, expected):
-        mock_members_retriever.get.return_value = members
+    def test_run_with_messenger_send_called(self, checker, mock_members_storage, mock_messenger, members, expected):
+        mock_members_storage.get.return_value = members
 
         checker.run(days_notice=1)
         actual = mock_messenger.send.called
@@ -63,9 +63,9 @@ class TestChecker:
             }
         ),
     ], ids=repr)
-    def test_run_with_messenger_send_messages(self, checker, mock_members_retriever, mock_messenger, days_notice,
+    def test_run_with_messenger_send_messages(self, checker, mock_members_storage, mock_messenger, days_notice,
                                               members, expected):
-        mock_members_retriever.get.return_value = members
+        mock_members_storage.get.return_value = members
         checker.run(days_notice=days_notice)
 
         if expected['msg'] != 'No renewals due.':

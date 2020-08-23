@@ -6,20 +6,20 @@ from tabulate import tabulate
 
 from renewal_reminder.business_logic.model.member import Member
 from renewal_reminder.ports.messenger import Messenger
-from renewal_reminder.ports.storage import MembersRetriever
+from renewal_reminder.ports.storage import MembersStorage
 
 
 class RenewalChecker:
 
-    def __init__(self, messenger: Messenger, members_retriever: MembersRetriever):
+    def __init__(self, messenger: Messenger, members_storage: MembersStorage):
         self._messenger = messenger
-        self._members_retriever = members_retriever
+        self._members_storage = members_storage
 
     def run(self, days_notice: int) -> None:
         days_notice_as_date = datetime.now().date() + timedelta(+days_notice)
 
         logging.info(msg='Start check for _renewal_checker')
-        members = self._members_retriever.get()
+        members = self._members_storage.get()
         members_due_renewal = self._check(members=members, days_notice=days_notice_as_date)
         msg = self._prepare_message(days_notice=days_notice, members_due_renewals=members_due_renewal)
 
