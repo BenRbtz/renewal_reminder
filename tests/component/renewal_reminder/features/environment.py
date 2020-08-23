@@ -1,5 +1,4 @@
 from os import environ
-from pathlib import Path
 
 from behave import fixture
 from behave.fixture import use_fixture_by_tag
