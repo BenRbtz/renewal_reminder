@@ -6,6 +6,9 @@ install:
 install-dev:
 	poetry install
 
+update:
+	poetry update
+
 run-unit-tests:
 	poetry run pytest tests/unit
 
