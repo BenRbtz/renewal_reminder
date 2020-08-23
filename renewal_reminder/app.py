@@ -3,9 +3,8 @@ from dataclasses import dataclass
 from os import environ
 from typing import Optional
 
-from renewal_reminder.business_logic.checker import Checker
+from renewal_reminder.business_logic.checker import RenewalChecker
 from renewal_reminder.infrastructure.messenger.bot import BotMessenger
-from renewal_reminder.infrastructure.renewal.notice import RenewalCheckerNotice
 from renewal_reminder.infrastructure.storage.csv import CsvMembersRetriever
 
 
@@ -48,10 +47,8 @@ def main():
 
     messenger = BotMessenger(token_id=config.telegram.token_id, chat_id=config.telegram.chat_id,
                              base_url=config.telegram.base_url)
-    renewals = RenewalCheckerNotice()
     members_retriever = CsvMembersRetriever(file_path=config.file_path)
-    checker = Checker(messenger=messenger, renewal_checker=renewals,
-                      members_retriever=members_retriever)
+    checker = RenewalChecker(messenger=messenger, members_retriever=members_retriever)
 
     checker.run(days_notice=config.days_notice)
 
