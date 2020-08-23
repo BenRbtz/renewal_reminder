@@ -17,12 +17,12 @@ Before you consider running the application, refer to the below table for requir
 
 | Name | Description | required | Example |
 |:------:|:-----------:|:--------:|:-------:|
-| APP_FILE_PATH   | Csv file path containing members information. | yes | /app/example.csv |
-| APP_TOKEN_ID    | Telegram bot token id.                        | yes | 100100100 |
-| APP_CHAT_ID     | Telegram chat id.                             | yes | 200200200:dsa8219knkncsa | 
-| APP_DAYS_NOTICE | Days notice before renewal is due.            | yes | 30 |
-| APP_LOG_LEVEL   | App log level. Default INFO.                  | No  | INFO |
-
+| APP_DAYS_NOTICE   | Days notice before renewal is due.            | yes | 30 |
+| APP_FILE_PATH     | Csv file path containing members information. | yes | /app/example.csv |
+| APP_LOG_LEVEL     | App log level. Default INFO.                  | No  | INFO |
+| TELEGRAM_BASE_URL | Telegram API base url. Default in example.    | No  | https://api.telegram.org/bot | 
+| TELEGRAM_CHAT_ID  | Telegram chat id.                             | yes | 200200200:dsa8219knkncsa | 
+| TELEGRAM_TOKEN_ID | Telegram bot token id.                        | yes | 100100100 |
  
 ### Run Application
 After setting the [environment variables](#environment-variables), the app can be run with one of the following options:
