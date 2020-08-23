@@ -1,0 +1,37 @@
+:mod:`tests.component.renewal_reminder.features.controller.telegram_bot`
+========================================================================
+
+.. py:module:: tests.component.renewal_reminder.features.controller.telegram_bot
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   tests.component.renewal_reminder.features.controller.telegram_bot.TelegramController
+
+
+
+.. py:class:: TelegramController(base_url: str)
+
+   .. method:: health(self)
+
+
+
+   .. method:: requests(self)
+
+
+
+   .. method:: clear_requests(self)
+
+
+
+   .. method:: last_request(self)
+
+
+
+

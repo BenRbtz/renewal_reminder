@@ -1,0 +1,26 @@
+:mod:`renewal_reminder`
+=======================
+
+.. py:module:: renewal_reminder
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   business_logic/index.rst
+   infrastructure/index.rst
+   ports/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   app/index.rst
+
+

@@ -1,0 +1,17 @@
+:mod:`tests`
+============
+
+.. py:module:: tests
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   component/index.rst
+   unit/index.rst
+   utils/index.rst
+
+

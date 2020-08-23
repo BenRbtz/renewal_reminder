@@ -1,0 +1,16 @@
+:mod:`renewal_reminder.ports`
+=============================
+
+.. py:module:: renewal_reminder.ports
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   messenger/index.rst
+   storage/index.rst
+
+

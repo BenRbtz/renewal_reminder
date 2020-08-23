@@ -1,0 +1,69 @@
+:mod:`conf`
+===========
+
+.. py:module:: conf
+
+
+Module Contents
+---------------
+
+.. data:: root_path
+   
+
+   
+
+.. data:: project
+   :annotation: = renewal_reminder
+
+   
+
+.. data:: copyright
+   :annotation: = 2020, Ben Roberts
+
+   
+
+.. data:: author
+   :annotation: = Ben Roberts
+
+   
+
+.. data:: extensions
+   :annotation: = ['autoapi.extension', 'sphinx.ext.autosectionlabel', 'sphinx.ext.extlinks', 'sphinx.ext.githubpages', 'sphinx_rtd_theme']
+
+   
+
+.. data:: autoapi_type
+   :annotation: = python
+
+   
+
+.. data:: autoapi_dirs
+   
+
+   
+
+.. data:: extlinks
+   
+
+   
+
+.. data:: templates_path
+   :annotation: = ['_templates']
+
+   
+
+.. data:: exclude_patterns
+   :annotation: = []
+
+   
+
+.. data:: html_theme
+   :annotation: = sphinx_rtd_theme
+
+   
+
+.. data:: html_static_path
+   :annotation: = ['_static']
+
+   
+

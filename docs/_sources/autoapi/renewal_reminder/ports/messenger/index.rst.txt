@@ -1,0 +1,28 @@
+:mod:`renewal_reminder.ports.messenger`
+=======================================
+
+.. py:module:: renewal_reminder.ports.messenger
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   renewal_reminder.ports.messenger.Messenger
+
+
+
+.. py:class:: Messenger
+
+   .. method:: send(self, msg: str)
+
+
+      :param msg: message to be sent in messenger
+      :return: None
+
+
+

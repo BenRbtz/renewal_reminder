@@ -1,0 +1,25 @@
+:mod:`tests.component.renewal_reminder.features`
+================================================
+
+.. py:module:: tests.component.renewal_reminder.features
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   controller/index.rst
+   steps/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   environment/index.rst
+
+

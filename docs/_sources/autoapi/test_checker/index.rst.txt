@@ -1,0 +1,49 @@
+:mod:`test_checker`
+===================
+
+.. py:module:: test_checker
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   test_checker.TestChecker
+
+
+
+.. py:class:: TestChecker
+
+   .. method:: mock_messenger(self)
+
+
+
+   .. method:: mock_members_storage(self)
+
+
+
+   .. method:: mock_logger(self)
+
+
+
+   .. method:: checker(self, mock_messenger, mock_members_storage, mock_logger)
+
+
+
+   .. method:: test_run_with_messenger_send_called(self, checker, mock_members_storage, mock_messenger, members, expected)
+
+
+
+   .. method:: test_run_with_messenger_send_messages(self, checker, mock_members_storage, mock_messenger, days_notice, members, expected)
+
+
+
+   .. method:: test__check(self, checker)
+
+
+
+

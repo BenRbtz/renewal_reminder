@@ -1,0 +1,58 @@
+:mod:`tests.utils.request`
+==========================
+
+.. py:module:: tests.utils.request
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   tests.utils.request.RequestMethod
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   tests.utils.request.make_request
+
+
+.. py:class:: RequestMethod
+
+   Bases: :class:`enum.Enum`
+
+   Generic enumeration.
+
+   Derive from this class to define new enumerations.
+
+   .. attribute:: GET
+      :annotation: = GET
+
+      
+
+   .. attribute:: POST
+      :annotation: = POST
+
+      
+
+   .. attribute:: PUT
+      :annotation: = PUT
+
+      
+
+   .. attribute:: DELETE
+      :annotation: = DELETE
+
+      
+
+
+.. function:: make_request(method: RequestMethod, url: str, data: Optional[dict] = None, headers: Optional[dict] = None) -> Response
+
+

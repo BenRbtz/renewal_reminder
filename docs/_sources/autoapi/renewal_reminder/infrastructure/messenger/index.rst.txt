@@ -1,0 +1,15 @@
+:mod:`renewal_reminder.infrastructure.messenger`
+================================================
+
+.. py:module:: renewal_reminder.infrastructure.messenger
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   bot/index.rst
+
+

@@ -20,3 +20,6 @@ dev-services-up:
 
 dev-services-down:
 	docker-compose -f docker/docker-compose.yaml down --remove-orphans
+
+run-docs:
+	poetry run sphinx-build -b html $(PWD)/docsrc/ docs/

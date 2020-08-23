@@ -1,0 +1,81 @@
+:mod:`renewal_reminder.app`
+===========================
+
+.. py:module:: renewal_reminder.app
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   renewal_reminder.app.TelegramConfig
+   renewal_reminder.app.AppConfig
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   renewal_reminder.app.main
+
+
+.. py:class:: TelegramConfig
+
+   .. attribute:: chat_id
+      :annotation: :str
+
+      
+
+   .. attribute:: token_id
+      :annotation: :str
+
+      
+
+   .. attribute:: base_url
+      :annotation: :Optional[str]
+
+      
+
+   .. method:: read_from_environment(cls)
+      :classmethod:
+
+
+
+
+.. py:class:: AppConfig
+
+   .. attribute:: days_notice
+      :annotation: :int
+
+      
+
+   .. attribute:: file_path
+      :annotation: :str
+
+      
+
+   .. attribute:: log_level
+      :annotation: :str
+
+      
+
+   .. attribute:: telegram
+      :annotation: :TelegramConfig
+
+      
+
+   .. method:: read_from_environment(cls)
+      :classmethod:
+
+
+
+
+.. function:: main()
+
+

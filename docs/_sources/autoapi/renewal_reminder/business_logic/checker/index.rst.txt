@@ -1,0 +1,35 @@
+:mod:`renewal_reminder.business_logic.checker`
+==============================================
+
+.. py:module:: renewal_reminder.business_logic.checker
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   renewal_reminder.business_logic.checker.RenewalChecker
+
+
+
+.. py:class:: RenewalChecker(messenger: Messenger, members_storage: MembersStorage)
+
+   .. method:: run(self, days_notice: int)
+
+
+
+   .. method:: _check(days_notice: date, members: List[Member])
+      :staticmethod:
+
+
+
+   .. method:: _prepare_message(days_notice: int, members_due_renewals: List[Member])
+      :staticmethod:
+
+
+
+

@@ -1,0 +1,34 @@
+:mod:`renewal_reminder.infrastructure.storage.csv`
+==================================================
+
+.. py:module:: renewal_reminder.infrastructure.storage.csv
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   renewal_reminder.infrastructure.storage.csv.MembersStorageCsv
+
+
+
+.. data:: FIELDS
+   
+
+   
+
+.. py:class:: MembersStorageCsv(file_path: str)
+
+   Bases: :class:`renewal_reminder.ports.storage.MembersStorage`
+
+   .. method:: get(self)
+
+
+      Get members 
+
+
+

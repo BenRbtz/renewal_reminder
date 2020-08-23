@@ -1,0 +1,30 @@
+:mod:`renewal_reminder.infrastructure.messenger.bot`
+====================================================
+
+.. py:module:: renewal_reminder.infrastructure.messenger.bot
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   renewal_reminder.infrastructure.messenger.bot.BotMessenger
+
+
+
+.. py:class:: BotMessenger(token_id: str, chat_id: str, base_url: Optional[str] = None)
+
+   Bases: :class:`renewal_reminder.ports.messenger.Messenger`
+
+   .. method:: send(self, msg: str)
+
+
+      :param msg: message to be sent in messenger
+      :return: None
+
+
+

@@ -1,0 +1,47 @@
+:mod:`app`
+==========
+
+.. py:module:: app
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   app.health
+   app.send_message
+   app.requests
+   app.requests_last
+   app.requests_clear
+
+
+.. data:: app
+   
+
+   
+
+.. data:: REQUESTS
+   :annotation: = []
+
+   
+
+.. function:: health()
+
+
+.. function:: send_message(token_id: str)
+
+
+.. function:: requests()
+
+
+.. function:: requests_last()
+
+
+.. function:: requests_clear()
+
+

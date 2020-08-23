@@ -1,0 +1,15 @@
+:mod:`tests.component.renewal_reminder.features.controller`
+===========================================================
+
+.. py:module:: tests.component.renewal_reminder.features.controller
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   telegram_bot/index.rst
+
+

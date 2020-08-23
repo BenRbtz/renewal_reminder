@@ -1,0 +1,25 @@
+:mod:`test_bot`
+===============
+
+.. py:module:: test_bot
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   test_bot.TestBotMessenger
+
+
+
+.. py:class:: TestBotMessenger
+
+   .. method:: test_send(self, mock_bot)
+
+
+
+

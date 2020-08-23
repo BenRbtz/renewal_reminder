@@ -1,0 +1,24 @@
+:mod:`renewal_reminder.business_logic`
+======================================
+
+.. py:module:: renewal_reminder.business_logic
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   model/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   checker/index.rst
+
+

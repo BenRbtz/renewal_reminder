@@ -1,0 +1,36 @@
+:mod:`renewal_reminder.business_logic.model.member`
+===================================================
+
+.. py:module:: renewal_reminder.business_logic.model.member
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   renewal_reminder.business_logic.model.member.Member
+
+
+
+.. py:class:: Member
+
+   .. attribute:: name
+      :annotation: :str
+
+      
+
+   .. attribute:: grade
+      :annotation: :str
+
+      
+
+   .. attribute:: licence_expiry
+      :annotation: :date
+
+      
+
+

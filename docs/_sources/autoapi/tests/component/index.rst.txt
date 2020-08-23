@@ -1,0 +1,15 @@
+:mod:`tests.component`
+======================
+
+.. py:module:: tests.component
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   renewal_reminder/index.rst
+
+

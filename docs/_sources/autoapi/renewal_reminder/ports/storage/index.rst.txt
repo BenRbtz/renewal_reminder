@@ -1,0 +1,27 @@
+:mod:`renewal_reminder.ports.storage`
+=====================================
+
+.. py:module:: renewal_reminder.ports.storage
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   renewal_reminder.ports.storage.MembersStorage
+
+
+
+.. py:class:: MembersStorage
+
+   .. method:: get(self)
+
+
+      Get members 
+
+
+
