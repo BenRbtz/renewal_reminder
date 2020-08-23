@@ -9,7 +9,7 @@ class TestRenewalCheckerNotice:
         member1 = Mock()
         member1.licence_expiry = datetime.now().date() + timedelta(+0)
         member2 = Mock()
-        member2.licence_expiry = datetime.now().date() + timedelta(+1)
+        member2.licence_expiry = datetime.now().date() + timedelta(-1)
         member3 = Mock()
         member3.licence_expiry = datetime.now().date() + timedelta(+2)
         member4 = Mock()
@@ -18,5 +18,5 @@ class TestRenewalCheckerNotice:
         members = [member1, member2, member3, member4]
 
         expected = [member1, member2]
-        actual = RenewalCheckerNotice(days_notice=1).check(members=members)
+        actual = RenewalCheckerNotice().check(members=members, days_notice=datetime.now().date())
         assert actual == expected

@@ -27,7 +27,8 @@ class TestChecker:
 
     @pytest.fixture()
     def checker(self, mock_messenger, mock_renewal_checker, mock_members_retriever, mock_logger):
-        yield Checker(messenger=mock_messenger, renewal_checker=mock_renewal_checker, members_retriever=mock_members_retriever)
+        yield Checker(messenger=mock_messenger, renewal_checker=mock_renewal_checker,
+                      members_retriever=mock_members_retriever)
 
     @pytest.mark.parametrize('members, expected',
                              [([Member(name='person1', grade='9 kyu', licence_expiry=datetime.now().date())], True),
@@ -35,41 +36,41 @@ class TestChecker:
                               ], ids=repr)
     def test_run_with_messenger_send_called(self, checker, mock_messenger, mock_renewal_checker, members, expected):
         mock_renewal_checker.check.return_value = members
-        checker.run()
+        checker.run(days_notice=1)
         actual = mock_messenger.send.called
         assert actual == expected
 
-    @pytest.mark.parametrize('chat_id, members, expected', [
+    @pytest.mark.parametrize('days_notice, members, expected', [
         (
-                'chat_id1',
+                1,
                 [],
                 {
                     'msg': 'No renewals due.'
                 },
         ),
         (
-                'chat_id1',
+                2,
                 [Member(name='person', grade='9 kyu', licence_expiry='01-01-2018')],
                 {
-                    'msg': 'There is 1 renewals due in the next 30 days. Due on 01-01-2018.'
+                    'msg': 'There is 1 renewals due in the next 2 day(s). Due on 01-01-2018.'
                 },
         ),
         (
-                'chat_id2',
+                3,
                 [
                     Member(name='person1', grade='9 kyu', licence_expiry='05-06-2019'),
                     Member(name='person2', grade='8 kyu', licence_expiry='03-03-2018'),
                     Member(name='person3', grade='7 kyu', licence_expiry='01-01-2018'),
                 ],
                 {
-                    'msg': 'There are 3 renewals due in the next 30 days. Closest due on 01-01-2018.'
+                    'msg': 'There are 3 renewals due in the next 3 day(s). Closest due on 01-01-2018.'
                 }
         ),
     ], ids=repr)
-    def test_run_with_messenger_send_messages(self, checker, mock_messenger, mock_renewal_checker, chat_id, members,
+    def test_run_with_messenger_send_messages(self, checker, mock_messenger, mock_renewal_checker, days_notice, members,
                                               expected):
         mock_renewal_checker.check.return_value = members
-        checker.run()
+        checker.run(days_notice=days_notice)
 
         if expected['msg'] != 'No renewals due.':
             msg = expected['msg']

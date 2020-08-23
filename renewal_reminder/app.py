@@ -48,12 +48,12 @@ def main():
 
     messenger = BotMessenger(token_id=config.telegram.token_id, chat_id=config.telegram.chat_id,
                              base_url=config.telegram.base_url)
-    renewals = RenewalCheckerNotice(days_notice=config.days_notice)
+    renewals = RenewalCheckerNotice()
     members_retriever = CsvMembersRetriever(file_path=config.file_path)
     checker = Checker(messenger=messenger, renewal_checker=renewals,
                       members_retriever=members_retriever)
 
-    checker.run()
+    checker.run(days_notice=config.days_notice)
 
 
 if __name__ == '__main__':
