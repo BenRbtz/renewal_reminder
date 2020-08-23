@@ -4,11 +4,13 @@ hexagonal architecture within the `renewal_reminder` directory.
 
 ## Requirements
 Depending on how the application will be run, source or docker, the following dependencies are required:
+* make
 * python >= 3.8
 * poetry >= 1.0.0
 
 or
 
+* make
 * docker
 
 ## Usage
@@ -30,7 +32,7 @@ After setting the [environment variables](#environment-variables), the app can b
 #### Source
 ```bash
 # cd PROJECT_ROOT_DIR
-poetry install
+make install
 python renewal_reminder/app.py
 ```
 #### Docker
@@ -38,3 +40,18 @@ python renewal_reminder/app.py
 docker run -v $(PWD)/example.csv:/app/file_name.csv wondercipher/renewal_reminder
 ```
 NOTE - the provided filepath provided in environment variable APP_FILE_PATH, must mount be mounted in container and matching
+
+## Development
+
+### Tests
+The following sub-sections will detail how to set up and run different test levels from the CLI.
+#### Unit
+```bash
+make run-unit-tests
+```
+#### Component
+```bash
+make dev-services-up # Start local docker services needed
+make run-component-tests
+make dev-services-down # Stop local docker services after finishing
+```
