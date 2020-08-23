@@ -1,3 +1,5 @@
+PROJECT_NAME = renewal_reminder
+
 install:
 	poetry install --no-dev
 
@@ -11,7 +13,7 @@ run-component-tests:
 	poetry run behave tests/component/renewal_reminder/features
 
 dev-services-up:
-	docker-compose -f docker/docker-compose.yaml up --build -d
+	docker-compose --project-name ${PROJECT_NAME} -f docker/docker-compose.yaml up --build -d
 
 dev-services-down:
 	docker-compose -f docker/docker-compose.yaml down --remove-orphans

@@ -1,26 +1,4 @@
-FROM ubuntu:19.04 as base-image
-
-ENV PYTHONFAULTHANDLER=1 \
-    PYTHONUNBUFFERED=1 \
-    PYTHONHASHSEED=random \
-    PIP_NO_CACHE_DIR=off \
-    PIP_DISABLE_PIP_VERSION_CHECK=on \
-    PIP_DEFAULT_TIMEOUT=100
-
-RUN groupadd -g 999 app_group \
-    && useradd -r -u 999 -g app_group app_user
-
-RUN apt-get update \
-    && apt-get -y upgrade \
-    && apt-get install --no-install-recommends -y \
-        python3 \
-        python3-pip \
-    && update-alternatives --install /usr/bin/python python /usr/bin/python3 0 \
-    && update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 0 \
-    && pip install --upgrade pip
-
-
-FROM base-image as build-image
+FROM renewal_reminder_base as build
 
 RUN apt-get install -y \
         build-essential \
@@ -45,11 +23,11 @@ RUN poetry install --no-dev \
     && pip wheel --wheel-dir=./wheels .
 
 
-FROM base-image as run-image
+FROM renewal_reminder_base as app
 
 EXPOSE 5000
 
-COPY --from=build-image /app/wheels wheels
+COPY --from=build /app/wheels wheels
 
 RUN pip install wheels/* \
         --no-cache-dir \
